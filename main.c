@@ -1,6 +1,51 @@
 #include <stdio.h>
 
-void hello(void){
+double add(double a, double b){
+    return a + b;
+}
+
+double muti(double a, double b){
+    return a * b;
+}
+
+double divide(double a, double b){
+    return a / b;
+}
+
+double divide(double a, double b){
+    return a - b;
+}
+
+
+
+
+
+int main(){
+    double a, b;
+    char op;
+    double result;
+    
+
+    printf("Calculator in C.\n");
+    printf("Please enter a Calculation. (2 numbers + Vaild Operator), (e.g. 2 + 7)\n");
+    scanf("%lf %c %lf ", &a, &op, &b);
+
+    if(op == '+'){
+        result = add(a, b);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+/** void hello(void){
     printf("Hello!\n");
 }
 
@@ -73,7 +118,7 @@ int main(){
 
 
     return 0;
-}
+}**/
 
 
 

@@ -8,18 +8,20 @@ double muti(double a, double b){
     return a * b;
 }
 
-double divide(double a, double b){
+double divide(double a, double b, double *out){
     if (b == 0) {
         printf("Error");
         return 0;
     }
-    return a / b;
+    *out = a / b;
+    return *out;
+   
 }
 
 double sub(double a, double b){
     return a - b;
 }
-
+// 991.015317519
 
 
 
@@ -56,14 +58,17 @@ int main(){
         result = muti(result, num);
     } else if (op == '/'){
         scanf("%lf", &num);
-        result = divide(result, num);
+        //result = divide(result, num);
+        divide(result, num, &result);
+        
+
     } else {
         printf("Wrong Operator, please try again!");
     }
     
 
     }
-    printf("%.2lf", result);
+    printf("%.4lf", result);
     
 
     printf("\nWould you like to continue? (If you would like to stop, press q, if you would like to move on, please press on any key other then q.)");

@@ -27,7 +27,7 @@ int main(){
     total = total + 5;
     printf("[Previous] 8/0+5 = %.2lf   <- It's incorrect, but it pretends to be correct.\n\n", total);
 
-    divide_new(total, 0, &result)
+    divide_new(total, 0, &result);
 
     return 0;
 }

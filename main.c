@@ -8,7 +8,8 @@ double muti(double a, double b){
     return a * b;
 }
 
-double divide(double a, double b, double *out){
+double divide(double a, double b, double *out)
+{
     if (b == 0) {
         printf("Error");
         return 0;
@@ -32,6 +33,10 @@ int main(){
     char stop;
     double result;
     double num;
+    double a;
+    double b;
+
+
 
     printf("Calculator in C.\n");
     do {
@@ -53,14 +58,24 @@ int main(){
     } else if (op == '-'){
         scanf("%lf", &num);
         result = sub(result, num);
+        printf("answer = %.4lf", result);
     } else if (op == '*'){
         scanf("%lf", &num);
         result = muti(result, num);
+        printf("answer = %.4lf", result);
     } else if (op == '/'){
         scanf("%lf", &num);
         //result = divide(result, num);
         divide(result, num, &result);
+        if (b==0) {
+             printf("Error");
+        };
+      
+
+    
         
+
+
 
     } else {
         printf("Wrong Operator, please try again!");
@@ -68,17 +83,16 @@ int main(){
     
 
     }
-    printf("%.4lf", result);
+    // printf("%.4lf", result);
     
 
     printf("\nWould you like to continue? (If you would like to stop, press q, if you would like to move on, please press on any key other then q.)");
     scanf(" %c" , &stop );
 
 
-
     } while (stop != 'q'); 
 
-
+    return 0;
 }
 
 

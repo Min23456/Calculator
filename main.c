@@ -1,73 +1,220 @@
-
 #include <stdio.h>
 
 double add(double a, double b) { return a + b; }
-double muti(double a, double b) { return a * b; }
 double sub(double a, double b) { return a - b; }
-
-double divide(double a, double b, double *out) {
-    if (b == 0) {
-        printf("Error. \n");
-        return 0;
-    }
-    *out = a / b;
-    return *out;
-}
+double muti(double a, double b) { return a * b; }
+double divide(double a, double b) { return a / b; }
 
 int main() {
     char op;
-    char stop;
-    double result;
-    double a, b; 
+    double first_num, next_num;
+    double total;
 
     printf("Calculator in C.\n");
+    printf("Enter an equation (e.g., 5 + 3) or 'q' to quit: ");
+    
+    int parsed = scanf("%lf %c %lf", &first_num, &op, &next_num);
 
-    do {
-        printf("\nPlease enter a Calculation (e.g., 2 + 7):\n");
-        
-        if (scanf("%lf %c %lf", &a, &op, &b) == 3) {
-            
-          
-            if (op == '+') {
-                result = add(a, b);
-            } 
-            else if (op == '-') {
-                result = sub(a, b);
-            } 
-            else if (op == '*') {
-                result = muti(a, b);
-            } 
-            else if (op == '/') {
-            
-                if (b == 0) {
-                    printf("Error\n");
-                    continue;
-                }
-                divide(a, b, &result);
-            } 
-            else {
-                printf("Wrong Operator, please try again!\n");
-                continue;
-            }
+    if (parsed < 1) {
+        char quit_check;
+        if (scanf(" %c", &quit_check) == 1 && (quit_check == 'q' || quit_check == 'Q')) {
+            return 0;
+        }
+        printf("Invalid starting input.\n");
+        return 1;
+    }
 
-      
-            printf("Answer = %.4lf\n", result);
-            
-        } else {
-            printf("doesnt work\n");
-          
-            while (getchar() != '\n'); 
+    if (parsed == 1) {
+        char quit_check;
+        if (scanf(" %c", &quit_check) == 1 && (quit_check == 'q' || quit_check == 'Q')) {
+            return 0;
+        }
+        printf("Invalid input format.\n");
+        return 1;
+    }
+
+    if (parsed != 3) {
+        printf("Invalid input format.\n");
+        return 1;
+    }
+
+    if (op == '+') {
+        total = add(first_num, next_num);
+    } else if (op == '-') {
+        total = sub(first_num, next_num);
+    } else if (op == '*') {
+        total = muti(first_num, next_num);
+    } else if (op == '/') {
+        if (next_num == 0) {
+            printf("Error: Division by zero!\n");
+            return 1;
+        }
+        total = divide(first_num, next_num);
+    } else {
+        printf("Wrong Operator '%c'!\n", op);
+        return 1;
+    }
+
+    while (1) {
+        // --- FIXED LINE PEAKING LOGIC ---
+        // Look at the very next character waiting in the buffer.
+        // We bypass any trailing blank spaces to see if an actual newline is next.
+        char check = getchar();
+        while (check == ' ' || check == '\t') {
+            check = getchar();
         }
 
-        printf("\nWould you like to continue? (Press 'q' to stop, any other key to move on): ");
-        scanf(" %c", &stop);
+        // If the user hit 'Enter' (\n), they are done typing their chain!
+        if (check == '\n' || check == EOF) {
+            printf("\nCurrent Total: %.4lf\n", total);
+            printf("Enter operator and next number (e.g., * 2), or 'q' to quit: \n");
+        } else {
+            // If they typed more operations, put the character back for scanf to read
+            ungetc(check, stdin);
+        }
 
-    } while (stop != 'q');
+        if (scanf(" %c", &op) != 1) {
+            printf("Invalid operator input.\n");
+            break;
+        }
 
+        if (op == 'q' || op == 'Q') {
+            break;
+        }
+
+        if (scanf("%lf", &next_num) != 1) {
+            printf("Invalid number format.\n");
+            while (getchar() != '\n'); 
+            continue;
+        }
+
+        if (op == '+') {
+            total = add(total, next_num);
+        } else if (op == '-') {
+            total = sub(total, next_num);
+        } else if (op == '*') {
+            total = muti(total, next_num);
+        } else if (op == '/') {
+            if (next_num == 0) {
+                printf("Error: Division by zero!\n");
+                continue;
+            }
+            total = divide(total, next_num);
+        } else {
+            printf("Wrong Operator '%c', please try again!\n", op);
+        }
+    }
+
+    printf("\nFinal Answer = %.4lf\n", total);
     return 0;
 }
 
-      
+
+
+
+
+
+
+
+
+/**double add(double a, double b) { return a + b; }
+double sub(double a, double b) { return a - b; }
+double muti(double a, double b) { return a * b; }
+double divide(double a, double b) { return a / b; }
+
+int main() {
+    char op;
+    double first_num, next_num;
+    double total;
+
+    printf("Calculator in C.\n");
+    printf("Enter an equation (e.g., 5 + 3) or 'q' to quit: ");
+    
+
+    int parsed = scanf("%lf %c %lf", &first_num, &op, &next_num);
+
+
+    if (parsed < 1) {
+       
+        char quit_check;
+        if (scanf(" %c", &quit_check) == 1 && (quit_check == 'q' || quit_check == 'Q')) {
+            return 0;
+        }
+        printf("Invalid starting input.\n");
+        return 1;
+    }
+
+   
+    if (parsed == 1) {
+        char quit_check;
+        if (scanf(" %c", &quit_check) == 1 && (quit_check == 'q' || quit_check == 'Q')) {
+            return 0;
+        }
+        printf("Invalid input format.\n");
+        return 1;
+    }
+
+    if (parsed != 3) {
+        printf("Invalid input format.\n");
+        return 1;
+    }
+
+    if (op == '+') {
+        total = add(first_num, next_num);
+    } else if (op == '-') {
+        total = sub(first_num, next_num);
+    } else if (op == '*') {
+        total = muti(first_num, next_num);
+    } else if (op == '/') {
+        if (next_num == 0) {
+            printf("Error: Division by zero!\n");
+            return 1;
+        }
+        total = divide(first_num, next_num);
+    } else {
+        printf("Wrong Operator '%c'!\n", op);
+        return 1;
+    }
+
+    while (1) {
+        printf("\nCurrent Total: %.4lf\n", total);
+        printf("Enter operator and next number (e.g., * 2), or 'q' to quit: \n");
+
+        if (scanf(" %c", &op) != 1) {
+            printf("Invalid operator input.\n");
+            break;
+        }
+
+        if (op == 'q' || op == 'Q') {
+            break;
+        }
+
+        if (scanf("%lf", &next_num) != 1) {
+            printf("Invalid number format.\n");
+            while (getchar() != '\n'); 
+            continue;
+        }
+
+        if (op == '+') {
+            total = add(total, next_num);
+        } else if (op == '-') {
+            total = sub(total, next_num);
+        } else if (op == '*') {
+            total = muti(total, next_num);
+        } else if (op == '/') {
+            if (next_num == 0) {
+                printf("Error: Division by zero!\n");
+                continue;
+            }
+            total = divide(total, next_num);
+        } else {
+            printf("Wrong Operator '%c', please try again!\n", op);
+        }
+    }
+
+    printf("\nFinal Answer = %.4lf\n", total);
+    return 0;
+} **/
 
     
         

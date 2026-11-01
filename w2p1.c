@@ -9,7 +9,7 @@ int main(void)
     double small;
     double med;
     double large;
-    int subt; 
+    double subt; 
     double TAX1;
     double subtt;
 
@@ -24,28 +24,28 @@ int main(void)
     printf("Enter price for a LARGE shirt: $");
     scanf("%lf", &large);
 
-    printf("\nShirt Prices\n");
+    printf("\nShirt Store Price List\n");
     printf("===============\n"); 
     printf("SMALL : $%.4lf\n", small);
     printf("MEDIUM :$%.4lf\n", med);
     printf("LARGE : $%.4lf\n", large);
 
-    subt = small * 8;
+    subt = small * numbershirts;
 
     TAX1 = subt * TAX;
 
     subtt = TAX1 + subt;
 
-    printf("\nPatty's Shirt Size is%d\n", patSize);
-    printf("Number of shirts Patty is buying%d", numbershirts);
+    printf("\nPatty's Shirt Size is: %c \n", patSize);
+    printf("Number of shirts Patty is buying: %d\n", numbershirts);
 
-    printf("\n Patty's shopping cart...\n");
-    printf("\nContains:%d", numbershirts);
+    printf("\n Patty's shopping cart...\n ");
+    printf("\nContains: %d Shirts", numbershirts);
 
-    printf("\nSub-total: $%.4d", subt);
+    printf("\nSub-total: $%.4lf", subt);
     printf("\nTaxes: $%.4lf", TAX1);
     printf("\nTotal (Sub-total + taxes): $%.4lf", subtt); 
-    scanf("%d", numbershirts);
+    scanf("%d", &numbershirts);
 
 
     return 0;

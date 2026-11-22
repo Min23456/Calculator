@@ -23,11 +23,13 @@ int main(void)
     double subtte;
     double subttee;
     double toonies;
-    double TR;
+    int TR; // toonies remainer
+    int TV;
     double loonies;
-    double LR;
+    int LR;
     double Quarters;
-    double QR;
+    int QR;
+    int QV;
     double Dimes;
     double DQ;
     double Nickels;
@@ -44,7 +46,7 @@ int main(void)
     int numbershirtstom = 3;
     int numbershirts = 6;
     
-    printf("Set Shirt Prices\n");
+    printf("Set Shirt Prices:\n");
     printf("===============\n");
     printf("Enter the price for a SMALL shirt: $");
     scanf("%lf", &small);
@@ -90,12 +92,28 @@ int main(void)
 
     TTAX = TAX1 + TAX2 + TAX3;
 // -------------------------------
-// COINS:
+// COINS: 
 
-
-
-
+    toonies = subtte / 2 + .755;
+    TV = toonies * 2;
+    TR = subtte - TV;
 // -------------------------------
+    loonies = TR % 1;
+    LR = TR - loonies;
+//-------------------------------
+    Quarters = 2 * 1;
+    QV = 0.25 * 2;
+    QR = LR - QV;
+//-------------------------------
+    Dimes = 0;
+ // remaining balance/tax balance is 0.0100 (QR)
+//-------------------------------
+    Nickels = 0;
+//-------------------------------
+    Pennies = 1;
+    PR = QR - 0.01;
+// -------------------------------
+
 // WHAT SHIRTS THEY ARE BUYING (PATTY, TOMMY, & SALLY);
     printf("\nPatty's Shirt Size is: %c \n", patSize);
     printf("Number of shirts Patty is buying: %d\n", numbershirts);
@@ -111,14 +129,14 @@ int main(void)
 
     printf("\n Customer Size Price Qty Sub-Total     Tax  Total\n");
     printf("\n-------- ---- ----- --- --------- --------- ---------\n");
-    printf("Patty %c %lf %d ", patSize, small, numbershirts, subt, subtt);
-    printf("Sally %c %lf %d", salSize, med, numbershirtssal, subtS, subttS);
-    printf("Tommy %c %lf %d", tomSize, large, numbershirtstom, subtT, subtT);
+    printf("Patty      %c       %lf       %d ", patSize, small, numbershirts, subt, subtt);
+    printf("Sally      %c       %lf       %d", salSize, med, numbershirtssal, subtS, subttS);
+    printf("Tommy      %c       %lf       %d", tomSize, large, numbershirtstom, subtT, subtT);
     printf("\n-------- ---- ----- --- ---------- ---------- -----------\n");
-    printf("%lf %lf %lf", subtte, TTAX, subttee);
+    printf("                   %lf %lf %lf", subtte, TTAX, subttee);
 // ----------------------------------------------------------------------------
 
-// WIP, add the Customer Size Price Qty Sub-Total Tax Total, (patty, sally & tommy)
+
 
 
     printf("\nDaily retail sales represented by coins\n");
@@ -127,6 +145,7 @@ int main(void)
     printf("\nSales EXCLUDING tax (Sub-tax)\n");
     printf("\nCoin     Qty     Balance\n");
     printf("\n-------     ---     ---------\n");
+    
     printf("Toonies ");
 // ----------------------------------------------------------------------------
 // WIP, put the coin, qty & balance here
